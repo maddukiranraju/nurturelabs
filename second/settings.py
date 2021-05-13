@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-
+import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -82,10 +82,12 @@ DATABASES = {
         'NAME': 'postgres',
         'USER' : 'postgres',
         'PASSWORD':7997,
-        'HOST' :'localhost'
+        'HOST' :'localhost',
+        
     }
 }
-
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -125,7 +127,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR,'static')
+    os.path.join(BASE_DIR,'second/static')
 ]
 STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 # Default primary key field type
@@ -135,4 +137,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+SECRET_KEY = os.environ.get('7997')
+EMAIL_HOST_USER = os.environ.get('maddukiranraju@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('123456789')
 
